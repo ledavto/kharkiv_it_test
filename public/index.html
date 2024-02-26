@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/main.css" />
+  </head>
+  <body>
+    <h1>Контроллер Half_light - дальний в пол накала !!!</h1>
+    <label>Выбери автомобиль </label
+    ><select name="cars"></select>
+    <p></p>
+    <button>Загрузить</button>
+  </body>
+  <script>
+    const btn = document.querySelector("button");
+    const list = document.querySelector("select");
+
+    btn &&
+      btn.addEventListener("click", async (event) => {
+        const res = await fetch("http://localhost:3000/controllers/drl");
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+        let brandOld = "";
+
+        const listDrl = data
+          .map((item) => {
+            let itemCombobox = "";
+
+            if (brandOld != item.brandAvto) {
+              itemCombobox = `<optgroup label="${item.brandAvto}">`;
+            }
+            brandOld = item.brandAvto;
+            return (
+              itemCombobox +
+              `<option value="${item.versionDrl}">${item.modelAvto}</option>`
+            );
+          })
+          .join("");
+        list.insertAdjacentHTML("beforeend", listDrl);
+      });
+
+    list.addEventListener("change", async (event) => {
+      document.querySelector(
+        "p"
+      ).innerHTML = `<p>Версия: ${event.currentTarget.value}</p>`;
+    });
+  </script>
+</html>
