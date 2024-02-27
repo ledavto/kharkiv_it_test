@@ -27,9 +27,16 @@ import { postsRouter, usersRouter } from "./routes/index.js";
 
 const app = express();
 
+app.use(express.static("public"));
+
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.set("views", "./views");
+
+app.use(morgan("tiny"));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 dotenv.config();
 // dotenv.config({ path: process.env.NODE_ENV === "production" ? "./.env" : });
@@ -47,27 +54,21 @@ mongoose
     process.exit(1);
   });
 
-app.use(morgan("tiny"));
-app.use(cors());
-app.use(express.json());
-
-// app.use(express.static("public"));
-
 //Шаблонизатор
 app.get("/", (req, res) => {
   res.render("home"); //Отображение страницы home
 });
-app.get("/post", (req, res) => {
-  res.render("post"); //Отображение страницы home
+
+app.get("/register", (req, res) => {
+  res.render("register"); //Отображение страницы register
 });
-app.get("/user/register", (req, res) => {
-  res.render("register"); //Отображение страницы home
+
+app.get("/login", (req, res) => {
+  res.render("login"); //Отображение страницы login
 });
-// app.post("/user/sended", (req, res) => {
-//   res.send(req.body); //Отображение страницы home
-// });
 
 app.use("/post", postsRouter);
+
 app.use("/user", usersRouter);
 
 app.use((_, res) => {

@@ -18,12 +18,18 @@ const loginUserCtrl = async (req, res, next) => {
 
     // if (!user.verify) throw HttpError(404, "User not verification!");
 
-    res.status(200).json({
-      token,
-      user: {
-        email: user.email,
-      },
-    });
+    // res.status(200).json({
+    //   token,
+    //   user: {
+    //     email: user.email,
+    //   },
+    // });
+
+    res.user = user;
+
+    res.status(200);
+    res.render("loginOk");
+
   } catch (error) {
     next(error);
   }
@@ -45,8 +51,6 @@ const logoutUserCtrl = async (req, res, next) => {
 const registerUserCtrl = async (req, res, next) => {
   try {
     //Валидация
-    console.log(req.body);
-
     const { error } = await User.validate(req.body);
     if (error) throw HttpError(400, error.message);
 
@@ -63,13 +67,15 @@ const registerUserCtrl = async (req, res, next) => {
 
     const { email, name, surname } = await addUserSrv(req.body);
 
-    res.status(201).json({
-      user: {
-        name,
-        surname,
-        email,
-      },
-    });
+    // res.status(201).json({
+    //   user: {
+    //     name,
+    //     surname,
+    //     email,
+    //   },
+    // });
+    res.status(201);
+    res.render("registerOk");
   } catch (error) {
     next(error);
   }

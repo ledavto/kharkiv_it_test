@@ -4,6 +4,9 @@ import { getPostSrv, addPostSrv, checkToken } from "../services/index.js";
 
 const getPostCtrl = async (req, res, next) => {
   try {
+
+    console.log(req.user);
+    
     const result = await getPostSrv();
     if (!result) {
       throw HttpError(404); //"Not found"

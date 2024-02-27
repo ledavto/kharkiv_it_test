@@ -17,8 +17,10 @@ const protect = async (req, res, next) => {
     if (!userId) throw HttpError("401", "Not authorized");
 
     const currentUser = await getUserSrv(userId);
-
     if (!currentUser) throw HttpError("401", "Not authorized");
+
+    console.log(currentUser);
+    req.user = currentUser;
 
     next();
   } catch (error) {
