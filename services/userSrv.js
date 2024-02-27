@@ -1,15 +1,19 @@
-import HttpError from "../../helpers/HttpError.js";
-import { User } from "../../models/userSchema.js";
+import HttpError from "../helpers/HttpError.js";
+import { User } from "../models/userSchema.js";
 import { signToken } from "./jwtServices.js";
 
+const getUserSrv = async (id) => User.findById(id);
+
+async function currentUserSrv(token) {
+  //Повертає об'єкт доданого юзера (з id).
+
+  const user = await User.findOne({ token });
+  if (!user) throw HttpError(401, "User data not found");
+
+  return user;
+}
+
 async function addUserSrv(userData) {
-  const urlAva = gravatar.url(userData.email, {
-    s: "200",
-    r: "pg",
-    d: "404",
-  });
-  userData.avatarURL = gravatar.url(urlAva);
-  
   //Повертає об'єкт доданого юзера (з id).
   const resAddDb = await User.create(userData);
 
@@ -36,9 +40,10 @@ async function loginUserSrv({ email, password }) {
   return { user, token };
 }
 
-async function logoutUserSrv({ id }) {
+async function logoutUserSrv(token) {
   //Повертає об'єкт доданого юзера (з id).
-  const user = await User.findOne({ id });
+
+  const user = await User.findOne({ token });
   if (!user) throw HttpError(401, "User data not found");
 
   user.token = null;
@@ -49,4 +54,4 @@ async function logoutUserSrv({ id }) {
   return userMod;
 }
 
-export { loginUserSrv, logoutUserSrv };
+export { addUserSrv, loginUserSrv, logoutUserSrv, getUserSrv, currentUserSrv };

@@ -6,12 +6,12 @@ const userSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true,"Set name for user"]
+      // required: [true,"Set name for user"]
     },
     surname: {
       type: String,
-      required: [true,"Set surname for user"]
-    },    
+      // required: [true,"Set surname for user"]
+    },
     password: {
       type: String,
       required: [true, "Set password for user"],

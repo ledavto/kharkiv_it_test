@@ -1,3 +1,3 @@
-import { protect, uploadAvatar } from "./authMiddleware.js";
+import { protect } from "./authMiddleware.js";
 
-export { protect, uploadAvatar };
+export { protect };

@@ -1,8 +1,8 @@
-import multer from "multer";
-import path from "path";
+// import multer from "multer";
+// import path from "path";
 import { HttpError } from "../helpers/index.js";
-import { checkToken, getUserSrv } from "../services/user/index.js";
-import { nanoid } from "nanoid";
+import { checkToken, getUserSrv } from "../services/index.js";
+// import { nanoid } from "nanoid";
 
 const protect = async (req, res, next) => {
   try {
@@ -27,32 +27,32 @@ const protect = async (req, res, next) => {
 };
 
 // BASIC MULTER USAGE
-const multerStorage = multer.diskStorage({
-  destination: (req, file, cbk) => {
-    cbk(null, path.join("tmp"));
-  },
-  filename: (req, file, cbk) => {
-    const extension = file.mimetype.split("/")[1]; // 'image/png'
+// const multerStorage = multer.diskStorage({
+//   destination: (req, file, cbk) => {
+//     cbk(null, path.join("tmp"));
+//   },
+//   filename: (req, file, cbk) => {
+//     const extension = file.mimetype.split("/")[1]; // 'image/png'
 
-    cbk(null, `${nanoid()}.${extension}`);
-  },
-});
+//     cbk(null, `${nanoid()}.${extension}`);
+//   },
+// });
 
-// config filter
-const multerFilter = (req, file, cbk) => {
-  if (file.mimetype.startsWith("image/")) {
-    cbk(null, true);
-  } else {
-    cbk(new HttpError(400, "Please, upload images only.."), false);
-  }
-};
+// // config filter
+// const multerFilter = (req, file, cbk) => {
+//   if (file.mimetype.startsWith("image/")) {
+//     cbk(null, true);
+//   } else {
+//     cbk(new HttpError(400, "Please, upload images only.."), false);
+//   }
+// };
 
-const uploadAvatar = multer({
-  storage: multerStorage,
-  fileFilter: multerFilter,
-  limits: {
-    fileSize: 2 * 1024 * 1024,
-  },
-}).single("File");
+// const uploadAvatar = multer({
+//   storage: multerStorage,
+//   fileFilter: multerFilter,
+//   limits: {
+//     fileSize: 2 * 1024 * 1024,
+//   },
+// }).single("File");
 
-export { protect, uploadAvatar };
+export { protect };

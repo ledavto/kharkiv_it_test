@@ -1,14 +1,14 @@
-import { Drl } from "../models/postchema.js";
+import { Post } from "../models/postSchema.js";
 
-async function getDrlSrv() {
+async function getPostSrv() {
   //Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
-  return Drl.find().sort({ brandAvto: 1 });
+  return Post.find();
 }
 
-async function addDrlSrv(data) {
-  const resAddDb = await Drl.create(data);
+async function addPostSrv(title, text, owner) {
+  const resAddDb = await Post.create({ title, text, owner });
   console.log(resAddDb);
   return resAddDb;
 }
 
-export { getDrlSrv, addDrlSrv };
+export { getPostSrv, addPostSrv };

@@ -22,6 +22,8 @@ mongoose
 // npm install mongoose --save
 // npm i dotenv
 // npm i jsonwebtoken
+// npm i express-handlebars
+// npm i nanoid
 
 // npm install --save multer
 // npm i gravatar
