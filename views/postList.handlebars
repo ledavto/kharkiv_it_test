@@ -1,0 +1,17 @@
+<h1>Post list page</h1>
+<p>Post list</p>
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/logout">Logout</a></li>
+  <li><a href="/newpost">New Post</a></li>
+</ul>
+
+<div>
+  {{rend}}
+  {{#each result}}
+    <div class="comment">
+      <h2>{{title}} </h2>
+      <p>{{text}}</p>
+    </div>
+  {{/each}}
+</div>

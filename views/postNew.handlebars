@@ -1,0 +1,31 @@
+<h1>Create new post</h1>
+<p>New post</p>
+<ul>
+  <li><a href="/">Home</a></li>
+  <li><a href="/logout">Logout</a></li>
+  <li><a href="/post">Post list</a></li>
+</ul>
+
+<form method="post" action="post">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input
+      name="title"
+      type="text"
+      class="form-control"
+      id="title"
+      aria-describedby="emailHelp"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+    <textarea
+      name="text"
+      class="form-control"
+      id="exampleFormControlTextarea1"
+      rows="3"
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -27,7 +27,7 @@ import { postsRouter, usersRouter } from "./routes/index.js";
 
 const app = express();
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
@@ -65,6 +65,12 @@ app.get("/register", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render("login"); //Отображение страницы login
+});
+app.get("/newpost", (req, res) => {
+  res.render("postNew"); //Отображение страницы login
+});
+app.get("/post", (req, res) => {
+  res.render("postList"); //Отображение страницы login
 });
 
 app.use("/post", postsRouter);

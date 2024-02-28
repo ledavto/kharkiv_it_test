@@ -7,7 +7,7 @@ async function getPostSrv() {
 
 async function addPostSrv(title, text, owner) {
   const resAddDb = await Post.create({ title, text, owner });
-  console.log(resAddDb);
+  // console.log(resAddDb);
   return resAddDb;
 }
 

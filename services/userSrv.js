@@ -22,6 +22,8 @@ async function addUserSrv(userData) {
 
 async function loginUserSrv({ email, password }) {
   //Повертає об'єкт доданого юзера (з id).
+
+  console.log(email, password);
   const user = await User.findOne({ email });
   if (!user) throw HttpError(401, "Email or password is wrong");
 
@@ -36,7 +38,6 @@ async function loginUserSrv({ email, password }) {
   await User.findByIdAndUpdate(user.id, user);
   user.password = undefined;
 
-  
   return { user, token };
 }
 

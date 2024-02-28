@@ -5,7 +5,7 @@ import { protect } from "../middlewares/index.js";
 const postsRouter = express.Router();
 
 // postsRouter.use(protect);
-postsRouter.get("/", getPostCtrl);
-postsRouter.post("/1", addPostCtrl);
+postsRouter.get("/list", getPostCtrl);
+postsRouter.post("/", addPostCtrl);
 
 export default postsRouter;
