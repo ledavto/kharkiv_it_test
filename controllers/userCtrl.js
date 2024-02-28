@@ -26,10 +26,12 @@ const loginUserCtrl = async (req, res, next) => {
     // });
 
     // res.user = user;
-
+    req.user = user;
+    
     res.status(200);
+    
 
-    res.render("loginOk");
+    res.render("loginOk", {token});
   } catch (error) {
     next(error);
   }
@@ -37,12 +39,11 @@ const loginUserCtrl = async (req, res, next) => {
 
 const logoutUserCtrl = async (req, res, next) => {
   try {
-    const token =
-      req.headers.authorization?.startsWith("Bearer ") &&
-      req.headers.authorization.split(" ")[1];
+    const token = req.params.token;
 
     const user = await logoutUserSrv(token);
-    res.status(204).json();
+    // res.status(204).json();
+    res.render("home");
   } catch (error) {
     next(error);
   }
@@ -83,11 +84,10 @@ const registerUserCtrl = async (req, res, next) => {
 
 const currentUserCtrl = async (req, res, next) => {
   try {
-    const token =
-      req.headers.authorization?.startsWith("Bearer ") &&
-      req.headers.authorization.split(" ")[1];
 
-    const { email, name, surname } = await currentUserSrv(token);
+  const token = req.params.token;
+    
+      const { email, name, surname } = await currentUserSrv(token);
 
     res.status(200).json({
       name,

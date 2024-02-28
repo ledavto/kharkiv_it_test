@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 
 import multer from "multer";
 import { postsRouter, usersRouter } from "./routes/index.js";
+import { protect } from "./middlewares/authMiddleware.js";
 
 // const storage = multer.diskStorage({
 //   destination: (req, file, cb) => {
@@ -66,11 +67,11 @@ app.get("/register", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login"); //Отображение страницы login
 });
-app.get("/newpost", (req, res) => {
-  res.render("postNew"); //Отображение страницы login
-});
-app.get("/post", (req, res) => {
-  res.render("postList"); //Отображение страницы login
+
+app.get("/post/new/:token", protect, (req, res) => {
+
+  const token  = req.params.token;
+  res.render("postNew", {token}); //Отображение страницы login
 });
 
 app.use("/post", postsRouter);

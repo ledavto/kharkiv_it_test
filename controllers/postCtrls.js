@@ -9,23 +9,25 @@ import {
 
 const getPostCtrl = async (req, res, next) => {
   try {
+
     const result = await getPostSrv();
     if (!result) {
       throw HttpError(404); //"Not found"
     }
 
-    const { name, surname } = await currentUserSrv(result.owner);
+    console.log(req.user);
 
-    // res.status(201).json(result);
+    if (!req.user) {
+      throw HttpError(404); //"Not found"
+    }
 
-    // res.status(200);
-
-    console.log(result);
+    const { name, surname } = req.user;
 
     const rend = result
       .map((item) => {
         const date = item.createdAt;
         new Date().toDateString();
+
         return `<h2>${item.title}</h2> <h3>${name} ${surname} - ${date}</h3><p>${item.text}</p>`;
       })
       .join("");
@@ -52,10 +54,8 @@ const addPostCtrl = async (req, res, next) => {
     if (error) {
       throw HttpError(400, error.message);
     }
+    const token = req.params.token;
 
-    const token =
-      req.headers.authorization?.startsWith("Bearer ") &&
-      req.headers.authorization.split(" ")[1];
 
     const userId = checkToken(token);
     const { title, text } = req.body;
@@ -68,7 +68,7 @@ const addPostCtrl = async (req, res, next) => {
     // res.status(201).json(result);
 
     res.status(200);
-    res.render("postList");
+    res.render("postNew", {token});
   } catch (error) {
     console.log(error);
   }

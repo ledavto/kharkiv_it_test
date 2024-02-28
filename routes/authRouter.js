@@ -12,7 +12,7 @@ const usersRouter = express.Router();
 usersRouter
   .post("/register", registerUserCtrl)
   .post("/login", loginUserCtrl)
-  .post("/logout", logoutUserCtrl)
-  .get("/current", protect, currentUserCtrl);
+  .get("/logout/:token", protect, logoutUserCtrl)
+  .get("/current/:token", protect, currentUserCtrl);
 
 export default usersRouter;

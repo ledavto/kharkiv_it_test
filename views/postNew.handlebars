@@ -2,11 +2,11 @@
 <p>New post</p>
 <ul>
   <li><a href="/">Home</a></li>
-  <li><a href="/logout">Logout</a></li>
-  <li><a href="/post">Post list</a></li>
+  <li><a href="/user/logout/{{token}}">Logout</a></li>
+  <li><a href="/post/list/{{token}}">Post list</a></li>
 </ul>
 
-<form method="post" action="post">
+<form method="post" action="{{token}}">
   <div class="mb-3">
     <label for="title" class="form-label">Title</label>
     <input

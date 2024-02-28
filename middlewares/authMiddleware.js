@@ -6,25 +6,29 @@ import { checkToken, getUserSrv } from "../services/index.js";
 
 const protect = async (req, res, next) => {
   try {
-    const token =
-      req.headers.authorization?.startsWith("Bearer ") &&
-      req.headers.authorization.split(" ")[1];
+
+    // console.log(req.params.token);
+    const token = req.params.token;
 
     if (!token) throw HttpError("401", "Not authorized");
 
     const userId = checkToken(token);
+    // console.log(userId);
 
     if (!userId) throw HttpError("401", "Not authorized");
 
     const currentUser = await getUserSrv(userId);
+// console.log(currentUser);
+    
     if (!currentUser) throw HttpError("401", "Not authorized");
 
-    console.log(currentUser);
+    // console.log(currentUser);
     req.user = currentUser;
 
     next();
   } catch (error) {
-    next(error);
+    // next(error);
+    res.render("loginFail");
   }
 };
 

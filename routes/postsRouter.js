@@ -5,7 +5,7 @@ import { protect } from "../middlewares/index.js";
 const postsRouter = express.Router();
 
 // postsRouter.use(protect);
-postsRouter.get("/list", getPostCtrl);
-postsRouter.post("/", addPostCtrl);
+postsRouter.get("/list/:token", protect, getPostCtrl);
+postsRouter.post("/new/:token", protect, addPostCtrl);
 
 export default postsRouter;
