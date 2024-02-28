@@ -25,11 +25,11 @@ const loginUserCtrl = async (req, res, next) => {
     //   },
     // });
 
-    res.user = user;
+    // res.user = user;
 
     res.status(200);
-    res.render("loginOk");
 
+    res.render("loginOk");
   } catch (error) {
     next(error);
   }
